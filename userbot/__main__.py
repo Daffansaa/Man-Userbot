@@ -24,6 +24,8 @@ from userbot.modules import ALL_MODULES
 from userbot.utils import autobot, checking
 
 try:
+    for module_name in ALL_MODULES:
+        imported_module = import_module("userbot.modules." + module_name)
     bot.start()
     call_py.start()
     user = bot.get_me()
@@ -35,18 +37,13 @@ try:
             "MAKANYA GA USAH BERTINGKAH GOBLOK, USERBOTnya GUA MATIIN NAJIS BANGET DIPAKE JAMET KEK LU.\nCredits: @mrismanaziz"
         )
         sys.exit(1)
+    LOGS.info(
+        f"Jika {user.first_name} Membutuhkan Bantuan, Silahkan Tanyakan di Grup https://t.me/SharingUserbot"
+    )
+    LOGS.info(f"Man-Userbot ⚙️ V{BOT_VER} [🔥 BERHASIL DIAKTIFKAN! 🔥]")
 except Exception as e:
     LOGS.info(str(e), exc_info=True)
     sys.exit(1)
-
-for module_name in ALL_MODULES:
-    imported_module = import_module("userbot.modules." + module_name)
-
-LOGS.info(
-    f"Jika {user.first_name} Membutuhkan Bantuan, Silahkan Tanyakan di Grup https://t.me/SharingUserbot"
-)
-
-LOGS.info(f"Man-Userbot ⚙️ V{BOT_VER} [🔥 BERHASIL DIAKTIFKAN! 🔥]")
 
 
 async def man_userbot_on():
@@ -58,10 +55,6 @@ async def man_userbot_on():
             )
     except Exception as e:
         LOGS.info(str(e))
-    try:
-        await bot(JoinChannelRequest("@Lunatic0de"))
-    except BaseException:
-        pass
     try:
         await bot(InviteToChannelRequest(int(BOTLOG_CHATID), [BOT_USERNAME]))
     except BaseException:
